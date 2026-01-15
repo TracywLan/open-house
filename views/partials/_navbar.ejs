@@ -1,10 +1,27 @@
 <nav>
-  <% if (user) { %>
-  <a href="/users/profile">Profile</a>
-  <a href="/listings">View all Listings</a>
-  <a href="/auth/sign-out">Sign Out</a>
+  <% if(user) { %>
+  <div class="landing-header">
+    <div class="logo-container">
+      <div class="house-icon"></div>
+      <h1>OpenHouse</h1>
+    </div>
+    <div class="nav-links">
+      <a href="/users/profile">Profile</a>
+      <a href="/listings">View all Listings</a>
+      <a href="/auth/sign-out">Sign Out</a>
+    </div>
+  </div>
+
   <% } else { %>
-  <a href="/auth/sign-up">Sign Up</a>
-  <a href="/auth/sign-in">Sign In</a>
+  <div class="landing-header">
+    <div class="logo-container">
+      <div class="house-icon"></div>
+      <h1>OpenHouse</h1>
+    </div>
+    <div class="auth-links">
+      <a href="/auth/sign-up">Sign Up</a>
+      <a href="/auth/sign-in">Sign In</a>
+    </div>
+  </div>
   <% } %>
 </nav>

@@ -4,48 +4,65 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= listing.owner.username %>'s listing</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
   </head>
   <body>
     <%- include('../partials/_navbar.ejs') %>
-
-    <h1>A listing in <%= listing.city %></h1>
-
-    <h2>Details</h2>
-    <p>House Size: <%= listing.size %> sq ft</p>
-    <p>Price: <%= listing.price %></p>
-    <p>Street address: <%= listing.streetAddress %></p>
-
-    <h2>Owner</h2>
-  <% if (listing.owner._id.equals(user._id)) { %>
-    <p>You own this!</p>
-    <a href="/listings/<%= listing._id %>/edit">Edit this listing</a>
-  <% } else { %>
-    <p>You don't own this, <%= listing.owner.username %> does!</p>
-  <% } %>
-
-    <% if(message) { %>
-        <p><strong><%= message %></strong></p>
-    <% } %>
-    <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST">
-        <button type="submit">Delete this listing</button>
-    </form>
-
-
-    <h2>Favorites</h2>
-    <p>Favorited by <%= listing.favoritedByUsers.length %> people.</p>
-
-    <% if (userHasFavorited) { %>
-    <p>You've favorited this listing! ☑️</p>
-    <form action="/listings/<%= listing._id %>/favorited-by/<%= user._id %>?_method=DELETE" method="post">
-        <button type="submit">Unfavorite this Property</button>
-    </form>
-    <% } else { %>
-    <p>You haven't favorited this listing.</p>
-    
-    <form action="/listings/<%= listing._id %>/favorited-by/<%= user._id %>" method="post">
-        <button type="submit">Favorite this Property! ❤️</button>
-    </form>
-    <% } %>
+    <div class="show-page-container">
+    <div class="show-img"></div>
+    <div class="show-info-container">
+      <div class="show-header">
+        <h1><%= listing.city %> Listing</h1>
+        <h3>$<%= listing.price %></h3>
+      </div>
+      <div class="show-details-container">
+        <h2>Details</h2>
+        <p>House Size: <%= listing.size %> sq ft</p>
+        <p>Price: <%= listing.price %></p>
+        <p>Street address: <%= listing.streetAddress %></p>
+        <% if (listing.owner._id.equals(user._id)) { %>
+        <div class="owner-container">
+          <p>Owned by you</p>
+          <a href="/listings/<%= listing._id %>/edit">Edit</a>
+          <form
+            action="/listings/<%= listing._id %>?_method=DELETE"
+            method="POST"
+          >
+              <button type="submit">Delete Listing</button>
+          </form>
+        </div>
+            <% } else { %>
+        <p>Owned by <%= listing.owner.username %></p>
+        <% } %>
+      </div>
+          <% if(message) { %>
+              <p><strong><%= message %></strong></p>
+          <% } %>
+          
+      <div class="favorites-container">
+        <div class="favorites-count">
+          <h2><%= listing.favoritedByUsers.length %> Favorites</h2>
+        </div>
+        <div class="favorite-button-container">
+          <% if (userHasFavorited) { %>
+          <form
+            action="/listings/<%= listing._id %>/favorited-by/<%= user._id %>?_method=DELETE"
+            method="POST"
+          >
+            <button type="submit">Unfavorite</button>
+          </form>
+          <% } else { %>
+          <form
+            action="/listings/<%= listing._id %>/favorited-by/<%= user._id %>"
+            method="POST"
+          >
+            <button type="submit">Favorite</button>
+          </form>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
   </body>
 </html>

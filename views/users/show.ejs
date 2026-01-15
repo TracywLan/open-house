@@ -6,33 +6,41 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My Profile</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
   </head>
   <body>
-    <%- include('../partials/_navbar.ejs') %>
+  <%- include('../partials/_navbar.ejs') %>
+  <div class="profile-container">
     <h1>Profile</h1>
-    <p>Hello, <%= user.username %>!</p>
-    <h2>My Listings</h2>
     <p>
-    You own <%= myListings.length %> <%= myListings.length === 1 ? 'listing.' :
-    'listings.' %>
+      You have 
+      <%= myListings.length %> 
+      <%= myListings.length===1 ? 'Listing' : 'Listings' %>
     </p>
-    <ul>
-    <% myListings.forEach((listing) => { %>
-        <li>
-            A listing in <%= listing.city %> owned by <%= listing.owner.username %>.
-            <a href="/listings/<%= listing._id %>">View more details.</a>
-        </li>
-    <% }) %>
-    </ul>
-    <h2>My Favorites</h2>
-    <p>You have <%= myFavoriteListings.length %> favorites</p>
-    <ul>
-    <% myFavoriteListings.forEach((listing) => { %>
-        <li>
-            A listing in <%= listing.city %> owned by <%= listing.owner.username %>.
-            <a href="/listings/<%= listing._id %>">View more details.</a>
-        </li>
-    <% }) %>
-    </ul>
-  </body>
+    <div class="profile-card-container">
+      <% myListings.forEach((listing)=> { %>
+      <a href="/listings/<%= listing._id %>">
+        <h4><%= listing.city %> Listing</h4>
+        <p>Owned by <%= listing.owner.username %></p>
+      </a>
+      <% }) %>
+    </div>
+
+    <div class="profile-favorites-container">
+      <p>
+        You Have <%= myFavoriteListings.length %> 
+        <%= myFavoriteListings.length === 1 ? 'Favorite' : 'Favorites' %>
+      </p>
+      <div class="profile-card-container">
+        <% myFavoriteListings.forEach((listing)=> { %>
+        <a href="/listings/<%= listing._id %>">
+          <h4><%= listing.city %> Listing</h4>
+          <p>Owned by <%= listing.owner.username %></p>
+        </a>
+        <% }) %>
+      </div>
+    </div>
+  </div>
+</body>
+
 </html>
